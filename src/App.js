@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react'
+
+// A function to make requests to our Workers API using a query
+const getImages = async query => {
+  const url = "https://serverless-api.rorellana.workers.dev"
+  const resp = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({ query }),
+    headers: { 'Content-type': 'application/json' }
+  })
+  return resp.json()
+}
 
 function App() {
+  const [query, setQuery] = useState("")
+  const [images, setImages] = useState([])
+
+  const search = async () => {
+    const results = await getImages(query)
+    setImages(results)
+  }
+
+  const updateQuery = evt => setQuery(evt.target.value)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+      <div class="form">
+        <input id="query" type="text" onChange={updateQuery} placeholder="Search query" />
+        <button onClick={search}>Search</button>
+      </div>
+
+      {/* Map through the array of images and render a set of images */}
+      {images.map(image =>
+        <a key={image.id} href={image.link} target="_blank">
+          <img src={image.image} />
         </a>
-      </header>
+      )}
     </div>
   );
 }
