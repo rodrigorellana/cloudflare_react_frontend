@@ -5,7 +5,7 @@ import { useState } from 'react'
 const getImages = async query => {
   const url = "https://serverless-api.rorellana.workers.dev"
   const resp = await fetch(url, {
-    method: "POST",
+    method: "PUT",
     body: JSON.stringify({ query }),
     headers: { 'Content-type': 'application/json' }
   })
@@ -27,7 +27,7 @@ function App() {
     <div className="App">
       <div class="form">
         <input id="query" type="text" onChange={updateQuery} placeholder="Search query" />
-        <button onClick={search}>Search</button>
+        <button onClick={search}>Search v2</button>
       </div>
 
       {/* Map through the array of images and render a set of images */}
