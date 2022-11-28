@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App">
       <div class="form">
-        <input id="query" type="text" onChange={updateQuery} placeholder="Search query" />
+        <input id="query" type="text" onChange={updateQuery} placeholder="Search queryx" />
         <button onClick={search}>Search v2</button>
       </div>
 
